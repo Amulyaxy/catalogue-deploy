@@ -12,6 +12,7 @@ pipeline {
         options {
             timeout(time: 1, unit: 'HOURS')
             disableConcurrentBuilds()
+            ansiColor('xterm')
         }
         parameters {
 
@@ -25,6 +26,15 @@ pipeline {
                sh """
                     echo "version: ${params.version}"
                     echo "environemnt: ${params.environment}"
+               """
+            }
+        }
+        stage('Init') {
+            steps {
+               sh """
+                    cd terraform
+                    terraform init --backedn-config=${params.environment}/backend.tf
+                    -reconfigure
                """
             }
         }

@@ -21,3 +21,6 @@ variable "Environment" {
 variable "zone_name" {
     default = "awsdevops.website"
 }
+variable "app_version" {
+  
+}
