@@ -7,7 +7,7 @@
 }
 variable "tags" {
     default = {
-        Component = "app-alb"
+        Component = "catalogue"
     }
   
 }
