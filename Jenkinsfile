@@ -29,15 +29,14 @@ pipeline {
                """
             }
         }
-        stage('Init') {
+         stage('Init') {
             steps {
-               sh """
+                sh """
                     cd terraform
-                    terraform init --backedn-config=${params.environment}/backend.tf
-                    -reconfigure
-               """
+                    terraform init --backend-config=${params.environment}/backend.tf -reconfigure
+                """
             }
-        }
+        
         
     }
     post { 
