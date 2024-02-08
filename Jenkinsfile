@@ -41,10 +41,24 @@ pipeline {
             steps {
                 sh """
                     cd terraform
-                    terraform plan -var-file=${params.environment}/${params.environment}.tfvars -var="app_version=${params.version}"
+                    terraform plan -var-file=${params.environment}/${params.environment}.tfvars -var="app_version=${params.version}.tfvars -var="app_version=${params.version}"
                 """
             }
-        }
+          stage('Apply') {
+            steps {
+                sh """
+                    cd terraform
+                    terraform apply -var-file=${params.environment}/${params.environment}.tfvars -var="app_version=${params.version}.tfvars -var="app_version=${params.version} -auto-approve"
+                """
+            }
+        //     stage('Deploy') {
+        //     steps {
+        //         sh """
+        //             cd terraform
+        //             terraform plan -var-file=${params.environment}/${params.environment}.tfvars -var="app_version=${params.version}"
+        //         """
+        //     }
+        // }
 
         
     }
