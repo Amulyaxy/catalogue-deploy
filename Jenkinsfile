@@ -4,11 +4,6 @@ pipeline {
                 label 'AGENT-1'
             }
         }
-        // environment { 
-        //     GREETING = 'Hello Jenkins'
-        //     packageVersion = ''
-        //     nexusURL = '172.31.10.3:8081'
-        // }
         options {
             timeout(time: 1, unit: 'HOURS')
             disableConcurrentBuilds()
@@ -44,6 +39,7 @@ pipeline {
                     terraform plan -var-file=${params.environment}/${params.environment}.tfvars -var="app_version=${params.version}.tfvars -var="app_version=${params.version}"
                 """
             }
+          }
           stage('Apply') {
             steps {
                 sh """
@@ -51,15 +47,7 @@ pipeline {
                     terraform apply -var-file=${params.environment}/${params.environment}.tfvars -var="app_version=${params.version}.tfvars -var="app_version=${params.version} -auto-approve"
                 """
             }
-        //     stage('Deploy') {
-        //     steps {
-        //         sh """
-        //             cd terraform
-        //             terraform plan -var-file=${params.environment}/${params.environment}.tfvars -var="app_version=${params.version}"
-        //         """
-        //     }
-        // }
-
+          }
         
     }
     post { 
@@ -75,5 +63,6 @@ pipeline {
         }
     }
 }
+
     
 
